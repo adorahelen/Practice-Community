@@ -1,0 +1,19 @@
+{{>layout/header}}
+
+<form class="container" action="/feeds/create" method="post">
+    <!--    form 을 통해 데이터를 전달하고, action->url(로 이동시킨다.) http는 post-->
+    <div class="mb-3">
+        <label class="form-label">title</label>
+        <input type="text" class="form-control" name="title">
+        <!--        DTO의 타이틀 필드와 연결-->
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea class="form-control" rows="3" name="content"></textarea>
+        <!--        DTO의 컨텐츠 필드와 연결-->
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/articles">Back</a>
+</form>
+
+{{>layout/footer}}
