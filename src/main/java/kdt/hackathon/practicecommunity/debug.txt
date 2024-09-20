@@ -7,3 +7,8 @@ server.servlet.encoding.enabled=true
 server.servlet.encoding.force=true
 
 application.properties : 파일에 명시
+
+2. 템플릿엔진 에러
+com.samskivert.mustache.MustacheException$Context: No key, method or field with name 'updatedAt' on line 24
+-> 디비, updateAt 칼럼에 Null 값이 들어가 있는데, 이게 원인 (왜?)
+(일단 서비스 단에서 수정은 잘 되었는데, 필드에 널이 들어가 있어서, 뷰가 랜더링 되지 않음)
