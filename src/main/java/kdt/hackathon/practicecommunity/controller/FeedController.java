@@ -24,12 +24,12 @@ public class FeedController {
     private FeedRepository feedRepository;
 
 
-    @GetMapping("/feeds/new")
+    @GetMapping("/feeds/new") // C 뷰페이지
     public String newFeed() {
         return "feeds/new";
     }
 
-    @PostMapping("/feeds/create")
+    @PostMapping("/feeds/create") // C api
     public String createFeed(FeedDto DTO) {
         System.out.println(DTO.toString()); // logging 넘겨저 오는 값
 
@@ -40,12 +40,12 @@ public class FeedController {
         return "redirect:/feeds/" + savedfeed.getId();
     }
 
-    @GetMapping("/feeds/{id}")
+    @GetMapping("/feeds/{id}") // R 단일 뷰
     public String showFeed(@PathVariable Long id, Model model) {
-        log.info("id =" +id);
+        log.info("id =" + id);
         // Feed feed = feedRepository.findById(id); 이유: 찾는값이 없는 경우를 고려 X 못함
 
-       // Optional<Feed> feed = feedRepository.findById(id); 따라서 이거 혹은 밑에로 사용
+        // Optional<Feed> feed = feedRepository.findById(id); 따라서 이거 혹은 밑에로 사용
         // * Optional 은 참과 거짓을 둘다 내포 할 수 있고, 아래는 없으면 널을 반환하라고 명시했기에
         Feed feedOne = feedRepository.findById(id).orElse(null);
         model.addAttribute("feed", feedOne);
@@ -53,7 +53,7 @@ public class FeedController {
         return "feeds/show";
     }
 
-    @GetMapping("/feeds")
+    @GetMapping("/feeds") // R 전체 뷰 (페이징은 아직)
     public String index(Model model) {
 
         // List<Feed> feeds = feedRepository.findAll();
@@ -69,4 +69,31 @@ public class FeedController {
         return "feeds/index";
     }
 
+    @GetMapping("/feeds/{id}/edit") // U  뷰 페이지
+    public String editFeed(@PathVariable Long id, Model model) {
+        Feed resultfeed = feedRepository.findById(id).orElse(null);
+        model.addAttribute("feed", resultfeed);
+        return "feeds/edit";
+    }
+
+    @PostMapping("/feeds/update") // U api
+    public String updateFeed(FeedDto DTO) {
+
+        log.info(DTO.toString());
+
+        Feed updatefeed = DTO.toEntity();
+        log.info(updatefeed.toString());
+
+        Feed targetfeed = feedRepository.findById(updatefeed.getId()).orElse(null);
+
+        if (targetfeed != null) {
+            feedRepository.save(updatefeed);
+        }
+        return "redirect:/feeds/" + updatefeed.getId();
+    }
+
+
+
 }
+
+

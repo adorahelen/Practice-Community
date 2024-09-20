@@ -40,7 +40,8 @@ public class Feed {
     private Category category;
 
     @Builder
-    public Feed(String title,
+    public Feed(Long id,
+                String title,
                 String content,
                 LocalDateTime createdAt,
                 LocalDateTime updatedAt,
@@ -48,6 +49,7 @@ public class Feed {
 
     )
     {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;

@@ -1,0 +1,38 @@
+{{>layout/header}}
+
+<form class="container" action="/feeds/update" method="Post">
+    <!--    form 을 통해 데이터를 전달하고, action->url(로 이동시킨다.) http는 post-->
+    <!-- 폼테크가, 페치 지원 안해서, 그냥 포스트 사용 -->
+    <input name="id" type="hidden" value="{{id}}">
+    <!--     : 몇 번인 아티클을 수정하는지 알려 줘야 하므로 속성 추가, 화면 비 표시 히든 -->
+
+    <div class="mb-3">
+        <label class="form-label">title</label>
+        <input type="text" class="form-control" name="title" value="{{feed.title}}">
+        <!--        DTO의 타이틀 필드와 연결-->
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea class="form-control" rows="3" name="content">{{feed.content}}</textarea>
+    </div>
+
+    <!-- Category field as a dropdown -->
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select class="form-control" name="category">
+            <option value="QuestionAndAnswer">QuestionAndAnswer</option>
+            <option value="InternetCulture">InternetCulture</option>
+            <!-- 카테고리 목록을 추가로 확장 가능 -->
+        </select>
+    </div>
+
+    <!-- Hidden input fields to store createdAt and updatedAt (auto-filled by JavaScript) -->
+    <!--    <input type="hidden" id="createdAt" name="createdAt">-->
+    <!--    <input type="hidden" id="updatedAt" name="updatedAt">-->
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/feeds/{{feed.id}}" class="btn btn-secondary">Back</a>
+</form>
+
+
+{{>layout/footer}}
