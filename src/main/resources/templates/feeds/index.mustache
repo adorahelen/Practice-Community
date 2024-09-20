@@ -17,7 +17,7 @@
     {{#feeds}}
         <tr>
             <th>{{id}}</th>
-            <td>{{title}}</td>
+            <td><a href="/feeds/{{id}}">{{title}}</a></td>
             <td>{{content}}</td>
 
             <td>{{createdAt}}</td>
@@ -31,6 +31,7 @@
     </tbody>
 </table>
 
+<a href="/feeds/new">New feed Create</a>
 
 {{>layout/footer}}
 

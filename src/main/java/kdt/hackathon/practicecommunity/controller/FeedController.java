@@ -37,7 +37,7 @@ public class FeedController {
         System.out.println(newfeed); // logging : 성공, 엔티티 변환
         Feed savedfeed = feedRepository.save(newfeed);
         System.out.println(savedfeed.toString()); // logging : 성공 디비 저장
-        return "";
+        return "redirect:/feeds/" + savedfeed.getId();
     }
 
     @GetMapping("/feeds/{id}")
