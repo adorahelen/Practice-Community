@@ -1,0 +1,9 @@
+1. 한글깨짐 에러
+-> 해결은 했는데, 왜 일어났는지, 왜 잡혔는지 아리송함
+
+spring.mvc.charset=UTF-8
+server.servlet.encoding.charset=UTF-8
+server.servlet.encoding.enabled=true
+server.servlet.encoding.force=true
+
+application.properties : 파일에 명시

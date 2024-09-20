@@ -23,4 +23,5 @@ public class FeedDto {
         LocalDateTime now = LocalDateTime.now();
         return new Feed(title, content, now, now, category); // 현재 시간으로 생성 및 업데이트 시간 설정
     }
+    // 프론트(new.mustache)에서 보내는거 주석처리 후, 백엔드에서 시간 할당
 }

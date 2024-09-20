@@ -1,0 +1,37 @@
+{{>layout/header}}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">created_at</th>
+        <th scope="col">updated_at</th>
+        <th scope="col">category</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    {{#feed}}
+        <tr>
+            <th>{{id}}</th>
+            <td>{{title}}</td>
+            <td>{{content}}</td>
+
+            <td>{{createdAt}}</td>
+            <td>{{updatedAt}}</td>
+            <td>{{category}}</td>
+
+
+
+        </tr>
+    {{/feed}}
+    </tbody>
+</table>
+<a href="/feeds/{{feed.id}}/edit" class="btn btn-primary">Edit</a>
+<!--프론트에서 이동시킬 url을 정의함 "/articles{id}/edit" => 백에서 엔드포인트 그대로 정의 (컨트롤러에) -->
+<a href="/feeds">Go to feeds List</a>
+
+{{>layout/footer}}
