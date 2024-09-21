@@ -58,10 +58,15 @@ public class Feed {
     }
 
     // 게시글 업데이트 메소드
-    public void update(String title,
-                       String content,
-                       LocalDateTime updatedAt,
-                       Category category) {
+    public void update(
+
+            Long id,
+            String title,
+            String content,
+            LocalDateTime updatedAt,
+            Category category)
+    {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.updatedAt = updatedAt;

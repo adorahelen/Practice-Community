@@ -3,6 +3,7 @@ package kdt.hackathon.practicecommunity.controller;
 import kdt.hackathon.practicecommunity.dto.FeedDto;
 import kdt.hackathon.practicecommunity.entitiy.Feed;
 import kdt.hackathon.practicecommunity.repository.FeedRepository;
+import kdt.hackathon.practicecommunity.service.FeedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class FeedController {
 
     @Autowired
     private FeedRepository feedRepository;
+    @Autowired
+    private FeedService feedService;
 
 
     @GetMapping("/feeds/new") // C 뷰페이지
@@ -76,23 +79,29 @@ public class FeedController {
         return "feeds/edit";
     }
 
-    @PostMapping("/feeds/update") // U api
-    public String updateFeed(FeedDto DTO) {
+//    @PostMapping("/feeds/update") // U api
+//    public String updateFeed(FeedDto DTO) {
+//
+//        log.info(DTO.toString());
+//
+//        Feed updatefeed = DTO.toEntity();
+//        log.info(updatefeed.toString());
+//
+//        Feed targetfeed = feedRepository.findById(updatefeed.getId()).orElse(null);
+//
+//        if (targetfeed != null) {
+//            feedRepository.save(updatefeed);
+//        }
+//        return "redirect:/feeds/" + updatefeed.getId();
+//    }
 
-        log.info(DTO.toString());
+    @PostMapping("/feeds/update") // U api2
+    public String updateFeed2(FeedDto DTO) {
+        Long id = DTO.getId();
+        Feed resultfeed = feedService.update(id, DTO);
+        return "redirect:/feeds/" + resultfeed.getId();
 
-        Feed updatefeed = DTO.toEntity();
-        log.info(updatefeed.toString());
-
-        Feed targetfeed = feedRepository.findById(updatefeed.getId()).orElse(null);
-
-        if (targetfeed != null) {
-            feedRepository.save(updatefeed);
-        }
-        return "redirect:/feeds/" + updatefeed.getId();
     }
-
-
 
 }
 
