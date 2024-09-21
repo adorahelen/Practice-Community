@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,6 +40,12 @@ public class Feed {
     @Column(name = "category")
     private Category category;
 
+
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
+    // 관계 명시, if 피드가 삭제되면 그에 연관된 모든 댓글 엔티티를 삭제시키겠다.
+
+
     @Builder
     public Feed(Long id,
                 String title,
@@ -57,7 +64,7 @@ public class Feed {
         this.category = category;
     }
 
-    // 게시글 업데이트 메소드
+    // 게시글 업데이트 메소드 (이렇게 하지 않으면, 부분 수정은 불가능하고 전체를 덮어 씌우는거 밖에 안됨)
     public void update(
 
             Long id,
@@ -72,6 +79,15 @@ public class Feed {
         this.updatedAt = updatedAt;
         this.category = category;
     }
+
+    // api 용, demo 메소드
+    public void patch(Feed feed){
+        if (feed.title != null)
+            this.title = feed.title;
+        if (feed.content != null)
+            this.content = feed.content;
+    }
+
 }
 
 

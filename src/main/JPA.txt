@@ -1,0 +1,4 @@
+JPA 로깅
+- 로깅 레벨은 7단계가 존재한다.
+- Trace < Debug < Info < Warn < Error < Fatal < Off
+    * 1단계인 트레이스가 가장 많은 정보를 담고 있다. (7단계 오프는 로깅 x)

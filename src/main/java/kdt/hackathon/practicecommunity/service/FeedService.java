@@ -15,7 +15,7 @@ public class FeedService {
     FeedRepository feedRepository;
 
     @Transactional
-    public Feed update(Long id, FeedDto dto){
+    public Feed update(Long id, FeedDto dto){ // 기존 데이터에, 새 데이터를 붙여주어 -> 일부 데이터만 수정하도록
         Feed newfeed = feedRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Not Found : " + id));
 
