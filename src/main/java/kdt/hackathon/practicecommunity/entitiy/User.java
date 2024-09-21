@@ -2,10 +2,7 @@ package kdt.hackathon.practicecommunity.entitiy;
 
 import com.github.f4b6a3.ulid.Ulid; // ULID 사용
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +11,7 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.List;
 
 
 @Table(name = "users")
@@ -46,6 +44,16 @@ public class User {
 //  •	전화번호: 010-1234-5678 형식.
 //	•	생년월일: 1999-01-01 형식.
 
+    // # 피드나 코멘트가 지워져도, 유저는 영향을 받지 않지만,
+    //      유저가 지워지면 연관된 피드와 코멘트는 삭제된다.
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Feed> feeds;
+
+    // ==================================================
     @Builder
     public User(String email, // 로그인 아이디
                 String password, // 로그인 비밀번호

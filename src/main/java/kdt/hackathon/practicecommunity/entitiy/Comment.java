@@ -1,10 +1,7 @@
 package kdt.hackathon.practicecommunity.entitiy;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -12,25 +9,31 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "comments")
 public class Comment {
-    // 게시글-댓글 : one to many [1:n]
-    // 댓글-게시글 : many to one [n:1]
-
-    // => 게시판 기본키를 가지고 와서 외래키로 만들어야 한다.
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 
+    // #=============================================
+
     // 게시글 (번호)아이디 (외래키1) *******
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feed_id")
     private Feed feed;
 
-    // 작성자 아이디 (유저 테이블 이름 - 외래키2) ********
+    // 작성자 아이디 (유저 테이블 이름 - 외래키2)
+    //      * 게시판 <-> 댓글 이상 없을시 (조건 부여하기 : 둘다 작성자 아이디가 있어야 함 ULID)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    // ================================================
 
     @Column(name = "content", nullable = false)
     private String content;

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="feeds")
@@ -40,11 +41,15 @@ public class Feed {
     @Column(name = "category")
     private Category category;
 
-
+// ===============================================
+    // 피드에도 유저 아이디(작성자)가 명시되도록 조인
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+    // 피드가 삭제되면, 연관된 댓글들도 함께 삭제되도록 지정
     @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
-    // 관계 명시, if 피드가 삭제되면 그에 연관된 모든 댓글 엔티티를 삭제시키겠다.
-
+// ================================================
 
     @Builder
     public Feed(Long id,
