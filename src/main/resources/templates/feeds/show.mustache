@@ -32,6 +32,9 @@
 </table>
 <a href="/feeds/{{feed.id}}/edit" class="btn btn-primary">Edit</a>
 <!--프론트에서 이동시킬 url을 정의함 "/articles{id}/edit" => 백에서 엔드포인트 그대로 정의 (컨트롤러에) -->
+<a href="/feeds/{{feed.id}}/delete" class="btn btn-danger">Delete</a>
+<!--HTML 에서는 POST & GET 만 제공해준다,,(자바스크립트 없으면 PUT=PATCH, DELETE 못씀)-->
+
 <a href="/feeds">Go to feeds List</a>
 
 {{>layout/footer}}

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class FeedController {
 
     @GetMapping("/feeds/{id}") // R 단일 뷰
     public String showFeed(@PathVariable Long id, Model model) {
-        log.info("id =" + id);
+        log.info("조회된 피드 id =" + id);
         // Feed feed = feedRepository.findById(id); 이유: 찾는값이 없는 경우를 고려 X 못함
 
         // Optional<Feed> feed = feedRepository.findById(id); 따라서 이거 혹은 밑에로 사용
@@ -100,6 +101,19 @@ public class FeedController {
         Long id = DTO.getId();
         Feed resultfeed = feedService.update(id, DTO);
         return "redirect:/feeds/" + resultfeed.getId();
+
+    }
+
+    @GetMapping("/feeds/{id}/delete")
+    public String deleteFeed(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        log.info("삭제 요청이 들어온 id =" + id);
+        if (feedRepository.existsById(id)) {
+            feedRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("message", "삭제되었습니다!");
+        }
+        // RedirectAttributes : 리다이렉트 페이지에서 사용할 일회성 데이터를 관리하는 객체
+        //  이 객체의 .addFlashAttribute() 메서드로 리다이렉트된 페이지에서 사용할 데이터 등록 가능
+        return "redirect:/feeds";
 
     }
 
