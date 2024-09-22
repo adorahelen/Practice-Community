@@ -11,11 +11,16 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     // 단순한 CRUD 작업이 아니라, 페이지 처리와 정렬 작업시 JpaRepo 사용을 권장
     // 1. Find all comments for a specific feed (feedId)
     List<Comment> findByFeed(Feed feed);
+        // * if need, (Long feedId)
 
     // 2. Find all comments by a specific user (userId)
     List<Comment> findByUser(User user);
 
     // Find comments by content (or part of content)
     List<Comment> findByContentContaining(String keyword);
+
+    // 특정 게시글의 모든 댓글 조회
+    List<Comment> findByFeedId(Long feedId);
+
 
 }

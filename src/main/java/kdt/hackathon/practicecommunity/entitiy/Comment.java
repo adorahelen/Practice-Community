@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "comments")
+@ToString(exclude = "feed")
 public class Comment {
 
     @Id
